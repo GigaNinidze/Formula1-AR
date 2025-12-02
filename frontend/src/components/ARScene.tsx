@@ -229,8 +229,7 @@ export default function ARScene({ selectedRace }: ARSceneProps) {
             <Cars telemetry={data.telemetry} drivers={data.drivers} />
           </group>
           {/* AR Controls positioned below the track */}
-          <ARControls position={trackPosition} trackScale={trackScale} />
-        </>
+          <ARControls position={trackPosition} trackScale={trackScale} />        </>
       )}
     </>
   )

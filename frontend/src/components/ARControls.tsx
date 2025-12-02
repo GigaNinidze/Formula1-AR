@@ -19,10 +19,10 @@ export default function ARControls({ position, trackScale }: ARControlsProps) {
   const lastTriggerTimeRef = useRef<number>(0)
   const buttonMeshesRef = useRef<Record<string, THREE.Mesh>>({})
   
-  // Button positions relative to track center (below the track)
-  // Position controls below the track, centered horizontally
+  // Button positions relative to track center
+  // Position controls 30cm above their original position (-0.2 * scale)
   const buttonSpacing = 0.12 * trackScale
-  const buttonY = -0.2 * trackScale // Below the track
+  const buttonY = -0.2 * trackScale + 0.3 // Raised by 30cm
   const buttonSize = 0.1 * trackScale
   
   const playButtonPos = new THREE.Vector3(-buttonSpacing * 1.5, buttonY, 0)

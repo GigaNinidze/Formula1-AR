@@ -15,8 +15,17 @@ export default function Track({ trackPath }: TrackProps) {
 
     // Convert to Vector3 points and filter out invalid values
     // Track is flat (Y=0) for horizontal surface viewing
+    // Downsample points to improve performance and prevent context loss
     const points: THREE.Vector3[] = []
-    for (const point of trackPath) {
+    const DOWNSAMPLE_RATE = 10
+    
+    for (let i = 0; i < trackPath.length; i++) {
+      // Always include first and last point, otherwise skip based on rate
+      if (i !== 0 && i !== trackPath.length - 1 && i % DOWNSAMPLE_RATE !== 0) {
+        continue
+      }
+      
+      const point = trackPath[i]
       if (Array.isArray(point) && point.length >= 3) {
         const [x, , z] = point // Y is ignored - track is flattened to Y=0
         // Check for valid numbers

@@ -1,100 +1,319 @@
+/* F1 Race Selector - Dashboard Style Card */
+
 .race-selector {
   width: 100%;
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 640px;
+  margin: 0 auto var(--space-4);
+  padding: var(--space-6);
+  background: linear-gradient(
+    145deg,
+    rgba(42, 42, 42, 0.95) 0%,
+    rgba(26, 26, 26, 0.98) 50%,
+    rgba(20, 20, 20, 1) 100%
+  );
+  border-radius: var(--radius-xl);
+  box-shadow: 
+    0 8px 40px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(225, 6, 0, 0.25);
 }
 
+/* Top edge glow effect */
+.race-selector::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--f1-red) 30%,
+    var(--f1-red) 70%,
+    transparent 100%
+  );
+  box-shadow: 0 0 20px rgba(225, 6, 0, 0.6);
+}
+
+/* Carbon fiber texture overlay */
+.race-selector::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background: 
+    repeating-linear-gradient(
+      45deg,
+      #fff 0px,
+      #fff 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      #fff 0px,
+      #fff 1px,
+      transparent 1px,
+      transparent 3px
+    );
+}
+
+/* Section Title */
 .race-selector-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #000;
-  margin-bottom: 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--f1-white);
+  margin-bottom: var(--space-5);
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  position: relative;
+  z-index: 1;
 }
 
+.race-selector-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--f1-red);
+  margin: var(--space-3) auto 0;
+  border-radius: 1px;
+}
+
+/* Race List Container */
 .race-selector-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  position: relative;
+  z-index: 1;
 }
 
+/* Individual Race Item */
 .race-selector-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
-  background: #FFF;
-  border: 2px solid #E0E0E0;
-  border-radius: 0.75rem;
+  padding: var(--space-4) var(--space-5);
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.8), rgba(13, 13, 13, 0.9));
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
   text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover state scan line effect */
+.race-selector-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(225, 6, 0, 0.1),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.race-selector-item:hover::before {
+  left: 100%;
 }
 
 .race-selector-item:hover {
-  border-color: #FA8148;
-  background: #FFF5B2;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(250, 129, 72, 0.2);
+  border-color: var(--f1-red);
+  background: linear-gradient(135deg, rgba(42, 42, 42, 0.9), rgba(26, 26, 26, 0.95));
+  transform: translateX(4px);
+  box-shadow: 
+    0 4px 20px rgba(225, 6, 0, 0.2),
+    inset 0 0 20px rgba(225, 6, 0, 0.05);
 }
 
+/* Selected Race Item */
 .race-selector-item.selected {
-  border-color: #FA8148;
-  background: #FFF5B2;
-  box-shadow: 0 4px 12px rgba(250, 129, 72, 0.3);
+  border-color: var(--f1-red);
+  background: linear-gradient(
+    135deg,
+    rgba(225, 6, 0, 0.15) 0%,
+    rgba(225, 6, 0, 0.05) 100%
+  );
+  box-shadow: 
+    0 0 30px rgba(225, 6, 0, 0.3),
+    inset 0 0 30px rgba(225, 6, 0, 0.08);
 }
 
+/* Left accent bar for selected */
+.race-selector-item.selected::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--f1-red);
+  box-shadow: 0 0 12px var(--f1-red-glow);
+}
+
+/* Race Item Content */
 .race-selector-item-content {
   flex: 1;
+  padding-left: var(--space-2);
 }
 
 .race-selector-item-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #000;
-  margin-bottom: 0.25rem;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--f1-white);
+  margin-bottom: var(--space-1);
+  transition: color var(--transition-fast);
+}
+
+.race-selector-item.selected .race-selector-item-title {
+  color: var(--f1-red);
 }
 
 .race-selector-item-meta {
-  font-size: 0.85rem;
-  color: #666;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
+/* Checkmark Indicator */
 .race-selector-item-check {
-  font-size: 1.5rem;
-  color: #03CEA4;
-  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--f1-red);
+  border-radius: 50%;
+  font-size: 1rem;
+  color: var(--f1-white);
+  margin-left: var(--space-4);
+  box-shadow: 0 0 16px rgba(225, 6, 0, 0.6);
+  animation: checkPulse 2s ease-in-out infinite;
 }
 
+@keyframes checkPulse {
+  0%, 100% {
+    box-shadow: 0 0 16px rgba(225, 6, 0, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(225, 6, 0, 0.8);
+  }
+}
+
+/* Selected Race Confirmation Box */
 .race-selector-selected {
-  padding: 1rem;
-  background: #03CEA4;
-  color: #FFF;
-  border-radius: 0.5rem;
+  padding: var(--space-4) var(--space-5);
+  background: linear-gradient(135deg, var(--f1-red) 0%, var(--f1-red-dark) 100%);
+  color: var(--f1-white);
+  border-radius: var(--radius-md);
   text-align: center;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  position: relative;
+  z-index: 1;
+  box-shadow: 
+    0 4px 20px rgba(225, 6, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-.race-selector-loading,
-.race-selector-error,
-.race-selector-empty {
-  padding: 2rem;
-  text-align: center;
-  color: #666;
+.race-selector-selected p {
+  font-family: var(--font-body);
+  margin: 0;
+  color: var(--f1-white);
 }
 
+.race-selector-selected strong {
+  font-weight: 700;
+  display: block;
+  margin-top: var(--space-1);
+  font-size: 1rem;
+}
+
+/* Loading State */
+.race-selector-loading {
+  padding: var(--space-7);
+  text-align: center;
+}
+
+.race-selector-loading p {
+  font-family: var(--font-display);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+}
+
+/* Error State */
 .race-selector-error {
-  color: #CA1551;
+  padding: var(--space-5);
+  text-align: center;
+  background: linear-gradient(135deg, rgba(225, 6, 0, 0.1), rgba(225, 6, 0, 0.05));
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(225, 6, 0, 0.3);
+}
+
+.race-selector-error p {
+  color: var(--f1-red);
+  font-weight: 600;
+}
+
+/* Empty State */
+.race-selector-empty {
+  padding: var(--space-7);
+  text-align: center;
+}
+
+.race-selector-empty p {
+  color: var(--color-text-muted);
 }
 
 .race-selector-hint {
-  font-size: 0.85rem;
-  color: #999;
-  margin-top: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--f1-gray-dark) !important;
+  margin-top: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .race-selector {
+    padding: var(--space-5);
+    margin: 0 var(--space-3) var(--space-4);
+  }
+  
+  .race-selector-item {
+    padding: var(--space-3) var(--space-4);
+  }
+  
+  .race-selector-item-title {
+    font-size: 0.95rem;
+  }
+  
+  .race-selector-title {
+    font-size: 1rem;
+  }
+}

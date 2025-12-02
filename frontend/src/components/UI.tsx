@@ -16,7 +16,7 @@ export default function UI({ renderer, selectedRace, onRaceSelected }: UIProps) 
   const [sessionActive, setSessionActive] = useState(false)
   const buttonRef = useRef<HTMLButtonElement | null>(null)
   const selectedRaceRef = useRef<string | null>(selectedRace)
-  const { loading, error } = useRaceData(selectedRace)
+  const { loading, error, progress } = useRaceData(selectedRace)
 
   // Keep ref in sync with selectedRace
   useEffect(() => {
@@ -180,13 +180,24 @@ export default function UI({ renderer, selectedRace, onRaceSelected }: UIProps) 
           {loading && selectedRace && (
             <div className="ui-loading">
               <p>Loading race data...</p>
-              <div className="ui-spinner"></div>
+              <div className="ui-progress-container">
+                <div className="ui-progress-bar">
+                  <div 
+                    className="ui-progress-fill" 
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+                <span className="ui-progress-text">{progress}%</span>
+              </div>
+              <p className="ui-progress-status">
+                {progress < 98 ? 'Downloading telemetry data...' : 'Parsing race data...'}
+              </p>
             </div>
           )}
 
           {error && selectedRace && (
             <div className="ui-error">
-              <p>⚠️ Error loading race data</p>
+              <p>Error loading race data</p>
               <p className="ui-hint">{error}</p>
             </div>
           )}
@@ -195,14 +206,14 @@ export default function UI({ renderer, selectedRace, onRaceSelected }: UIProps) 
             <>
               {!selectedRace && (
                 <div className="ui-warning" style={{ marginTop: '1rem' }}>
-                  <p>⚠️ Please select a race above to continue</p>
+                  <p>Please select a race above to continue</p>
                 </div>
               )}
 
               {!isSupported && (
-                <p className="ui-warning">
-                  ⚠️ WebXR not supported. Please use Meta Quest 3 browser.
-                </p>
+                <div className="ui-warning">
+                  <p>WebXR not supported. Please use Meta Quest 3 browser.</p>
+                </div>
               )}
               
               <button
@@ -253,11 +264,11 @@ export default function UI({ renderer, selectedRace, onRaceSelected }: UIProps) 
                   }
                 }}
               >
-                {sessionActive ? '🥽 Exit AR' : '🥽 Enter AR'}
+                {sessionActive ? 'Exit AR' : 'Enter AR'}
               </button>
               
               <div className="ui-instructions">
-                <p className="ui-hint">Instructions:</p>
+                <p className="ui-hint">Instructions</p>
                 <ol className="ui-steps">
                   <li>Select a race from the list above</li>
                   <li>Put on your Meta Quest 3 headset</li>
