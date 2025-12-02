@@ -1,0 +1,6 @@
+# Root level ignores
+.DS_Store
+Thumbs.db
+*.log
+
+public/race_data_2023_Bahrain_R.json
